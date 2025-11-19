@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jay Prakash — Valuation & Financial Modelling</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+.project-btn{
+  display:inline-block;
+  background:#fff;
+  color:var(--ink);
+  border-radius:8px;
+  padding:10px 14px;
+  border:1px solid rgba(0,0,0,.06);
+  text-decoration:none;
+  font-size:14px;        /* SAME SIZE AS View Here */
+  font-weight:600;       /* SAME WEIGHT */
+  cursor:pointer;
+}
+
+    :root{
+      --bg: #f5e1df;
+      --ink: #111216;
+      --muted: #4b4f54;
+      --accent: #d82b1a;
+      --maxWidth: 1200px;
+    }
+
+    html,body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* page container */
+    .page{
+      width:min(94%, var(--maxWidth));
+      margin:0 auto;
+      padding-top:28px;
+      box-sizing:border-box;
+    }
+
+    /* header */
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:0;
+      padding-top:4px;
+    }
+    .logo{
+      font-family:"Playfair Display", serif;
+      color:var(--accent);
+      font-size:42px;           /* slightly larger for name */
+      font-weight:400;
+      line-height:1;
+    }
+    nav{
+      display:flex;
+      gap:26px;
+      align-items:center;
+      font-size:15px;
+    }
+    nav a{ color:var(--ink); text-decoration:none; }
+    nav a:hover{ color:var(--accent); }
+
+    .social svg{ width:20px; height:20px; fill:var(--ink); }
+
+    /* HERO layout: left-aligned and pushed down so it begins under the name */
+    .hero-outer {
+      width:100%;
+      box-sizing:border-box;
+      margin-top: 34vh; /* adjust to push hero lower */
+      margin-bottom: 6vh;
+    }
+
+    .hero {
+      max-width:90%;           /* controls how wide the red headline column is */
+      margin-left:0;
+    }
+
+    /* red headline */
+    .hero-title{
+      font-family:"Playfair Display", serif;
+      color:var(--accent);
+      font-weight:400;
+      line-height:1.05;
+      font-size: clamp(48px, 6.5vw, 84px);
+      margin:0 0 0 0;
+      max-width:90%;
+      letter-spacing:.2px;
+    }
+
+    /* short subtitle intentionally pushed below the fold */
+    .hero-sub{
+      margin-top:120px;        /* big gap so subtitle is normally below fold */
+      font-size:18px;
+      color:var(--muted);
+      line-height:1.85;
+      max-width:640px;
+    }
+
+    /* generic section style (two-column) */
+    .section{
+      display:grid;
+      grid-template-columns:320px 1fr;
+      gap:50px;
+      align-items:start;
+      padding:72px 0;
+      border-top:1px solid rgba(0,0,0,.06);
+    }
+    .left{
+      font-family:"Playfair Display", serif;
+      color:var(--accent);
+      font-size:32px;
+      line-height:1.05;
+    }
+    .meta{ margin-top:8px; color:var(--muted); font-style:italic; font-size:15px; }
+    .right{ font-size:17px; color:var(--muted); line-height:1.85; }
+
+    /* Projects band (matches Nathan layout) */
+    .projects-left {
+      font-family:"Playfair Display", serif;
+      color:var(--accent);
+      font-size:44px;               /* larger, like Nathan */
+      line-height:1.05;
+      margin-bottom:6px;
+    }
+    .projects-sub { font-style:italic; color:var(--muted); margin-top:6px; font-size:15px; }
+
+    .project-item { margin-bottom:34px; padding-bottom:28px; border-bottom:1px solid rgba(0,0,0,.05); }
+    .project-item h3 {
+      margin:0 0 10px 0;
+      font-family:Inter, system-ui;
+      font-weight:700;
+      color:var(--ink);
+      font-size:20px;
+    }
+    .project-item .desc { color:var(--muted); margin-bottom:12px; max-width:70ch; }
+    .project-btn{
+      display:inline-block;
+      background:#fff;
+      color:var(--ink);
+      border-radius:8px;
+      padding:10px 14px;
+      border:1px solid rgba(0,0,0,.06);
+      text-decoration:none;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .project-btn:active{ transform:translateY(1px); }
+
+    .pdf-viewer{ margin-top:18px; border-radius:8px; overflow:hidden; display:none; background:#f3f3f3; min-height:420px; border:1px solid rgba(0,0,0,.06); }
+
+    footer{ padding:32px 0; color:var(--muted); font-size:14px; border-top:1px solid rgba(0,0,0,.04); }
+
+    @media (max-width:1400px){
+      .hero { max-width:90%; }
+      .hero-outer { margin-top: 28vh; }
+      .hero-title{ font-size: clamp(40px, 8vw, 64px); }
+      .section{ grid-template-columns: 1fr; padding:48px 0; }
+      .projects-left{ font-size:40px; }
+    }
+    @media (max-width:520px){
+      .logo{ font-size:30px; }
+      nav{ gap:12px; font-size:14px; }
+      .hero-outer{ margin-top:20vh; }
+      .hero-title{ font-size:36px; }
+      .hero-sub{ margin-top:38px; font-size:16px; }
+      .projects-left{ font-size:28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- header -->
+    <header>
+      <div class="logo">Jay Prakash</div>
+
+<nav>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+
+  <a class="social" href="https://www.linkedin.com/in/jayprak4sh" target="_blank" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4zM8.5 8h3.8v2.2h.06c.53-1 1.82-2 3.74-2 4 0 4.75 2.6 4.75 6V24h-4v-7.4c0-1.76-.03-4-2.44-4-2.45 0-2.82 1.9-2.82 3.86V24h-4z"/>
+    </svg>
+  </a>
+</nav>
+
+    </header>
+
+    <!-- HERO -->
+    <div class="hero-outer" id="about">
+      <div class="hero">
+        <h1 class="hero-title">
+          Hi, i like to build models, measure value, and tell the story behind the numbers.<br>
+        </h1>
+
+        <p class="hero-sub">
+          Hi again, I'm Jay. I'm from Bengaluru, i recently completed my undergraduate degree at the Surana College where I earned a Bachelor in Business Administration with concentration in Corporate Finance. 
+        </p>
+      </div>
+    </div>
+
+    <!-- PROJECTS section (Nathan-style left heading + right list) -->
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <div>
+        <div class="projects-left" id="projects-title">Projects</div>
+        <div class="projects-sub">research, reports, valuations, and models</div>
+      </div>
+
+      <div class="right">
+        <!-- Project 1 -->
+        <div class="project-item">
+          <h3>Business Analysis & Equity Valuation – Page Industries Ltd. </h3>
+          <div class="desc">In-depth Valuation Report demonstrating key insights robust incorporating 10-years projections, DCF valuation, Sensitivity Analysis, and Comparable Companies Analysis.</div>
+         <div style="display:flex; gap:12px; margin-bottom:10px;">
+  <a class="project-btn" href="Page industries valuation report.pdf" target="_blank">Open in New Tab</a>
+  <button class="project-btn btn" onclick="togglePDF('pdf1', this)">View Here</button>
+</div>
+
+<div id="pdf1" class="pdf-viewer">
+  <embed src="Page industries valuation report.pdf#toolbar=0" type="application/pdf" width="100%" height="600px" />
+</div>
+
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-item">
+          <h3>Cost of Capital - India</h3>
+<div class="desc">Comprehensive report on WACC by analysing the India's biggest 187 companies across 18 sectors, covering 65% of country's listed market capitalisation to estimate a reliable sector-wise and country-wise benchmark for average Ke, Kd, and WACC.</div>
+          <div style="display:flex; gap:12px; margin-bottom:10px;">
+  <a class="project-btn" href="Cost of Capital India - march.pdf" target="_blank">Open in New Tab</a>
+  <button class="project-btn btn" onclick="togglePDF('pdf2', this)">View Here</button>
+</div>
+
+<div id="pdf2" class="pdf-viewer">
+  <embed src="Cost of Capital India - march.pdf#toolbar=0" type="application/pdf" width="100%" height="600px" />
+</div>
+        </div>
+
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="left" id="contact-title">Contact</div>
+      <div class="right">
+        <p style="color:var(--muted); margin-top:0;">The quickest way to reach me is through mail, i'm always happy to connect and have a chat about finance, valuation or any possible opportunities:</p>
+        <p><a href="mailto:jayprak4sh@gmail.com" style="color:var(--accent); font-weight:600;">jayprak4sh@gmail.com</a></p>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="yr"></span> Jay Prakash
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    function togglePDF(id, btn){
+      const el = document.getElementById(id);
+      if(!el) return;
+      // hide others
+      document.querySelectorAll('.pdf-viewer').forEach(v=>{ if(v.id !== id) v.style.display='none'; });
+      if(el.style.display === 'block'){
+        el.style.display = 'none';
+        btn.textContent = 'View PDF';
+      } else {
+        el.style.display = 'block';
+        // reset other buttons text
+        document.querySelectorAll('.btn').forEach(b => b.textContent = 'View PDF');
+        btn.textContent = 'Hide PDF';
+        setTimeout(()=> el.scrollIntoView({behavior:'smooth', block:'start'}), 120);
+      }
+    }
+
+    // smooth scrolling for internal anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const href = a.getAttribute('href');
+        if(!href || href === '#') return;
+        const el = document.querySelector(href);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+  </script>
+</body>
+</html>
