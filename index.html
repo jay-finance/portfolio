@@ -183,7 +183,7 @@
 
     /* Project items */
     .project-item { 
-      margin-bottom:34px; 
+      margin-bottom:48px; 
       padding-bottom:28px; 
       border-bottom:1px solid rgba(0,102,255,.06); 
       max-width:100%;
@@ -194,7 +194,7 @@
     }
 
     .project-item h3 {
-      margin:0 0 10px 0;
+      margin:0 0 16px 0;
       font-family:Inter, system-ui;
       font-weight:700;
       color:var(--accent);
@@ -203,7 +203,7 @@
     }
     .project-item .desc { 
       color:var(--muted); 
-      margin-bottom:12px; 
+      margin-bottom:18px; 
       max-width:90%; 
     }
     
@@ -406,7 +406,7 @@
             <!-- Project 9 -->
             <div class="project-item">
               <h3>Equity Risk Premium (ERP) & Country Risk Premium (CRP) Estimation Model - India</h3>
-              <div class="desc">Model estimating India’s Equity Risk Premium (ERP) and Country Risk Premium (CRP) using market-based CDS spreads, rating-based default spreads, and relative volatility of Nifty vs. Indian government bonds. It provides two ERP measures that offer a robust benchmark for valuation and cost of equity analysis in India.</div>
+              <div class="desc">Model estimating India's Equity Risk Premium (ERP) and Country Risk Premium (CRP) using market-based CDS spreads, rating-based default spreads, and relative volatility of Nifty vs. Indian government bonds. It provides two ERP measures that offer a robust benchmark for valuation and cost of equity analysis in India.</div>
               <div style="display:flex; gap:12px; margin-bottom:10px;">
                 <a class="project-btn" href="India - Equity and Country Risk Premiums.xlsx" download>View Model</a>
               </div>
@@ -487,6 +487,19 @@
       const content = document.getElementById(section + '-content');
       const toggle = document.getElementById(section + '-toggle');
       
+      // Close all other dropdowns
+      document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+        if(dropdown.id !== section + '-content') {
+          dropdown.classList.remove('active');
+        }
+      });
+      document.querySelectorAll('.dropdown-toggle').forEach(toggleBtn => {
+        if(toggleBtn.id !== section + '-toggle') {
+          toggleBtn.classList.remove('active');
+        }
+      });
+      
+      // Toggle current dropdown
       content.classList.toggle('active');
       toggle.classList.toggle('active');
     }
