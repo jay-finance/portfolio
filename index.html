@@ -374,14 +374,14 @@
       gap:50px;
       align-items:start;
       padding:72px 0;
-      border-top:1px solid rgba(0,102,255,.12);
+      border-1px solid rgba(0,102,255,.12);
     }
 
     /* Projects section - full width */
     #projects {
       display: block;
       padding:72px 0;
-      border-top:1px solid rgba(0,102,255,.12);
+      border-1px solid rgba(0,102,255,.12);
     }
 
     .left{
@@ -500,6 +500,7 @@
     <header>
       <div class="logo">Jay Prakash</div>
       <nav>
+        <a href="#infographics">Infographics</a>
         <a href="#projects">Other Tools</a>
         <a href="#contact">Contact</a>
         <a class="social" href="https://www.linkedin.com/in/jayprak4sh" target="_blank" aria-label="LinkedIn">
@@ -547,8 +548,10 @@
       <div class="metric-card-narrow">
         <p class="metric-card-title" style="color:var(--accent);">Country Risk Premium</p>
         <p class="metric-card-sub">India</p>
-        <p class="metric-card-value">3.89%</p>
-        <div class="metric-card-spacer"></div>
+        <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+          <p class="metric-card-value" style="text-align:center; margin-bottom:6px;">3.89%</p>
+          <span class="metric-value-label" style="text-align:center; max-width:160px;">Nifty 50, With Nifty 10 Year Benchmark G Sec</span>
+        </div>
         <a class="metric-card-link" href="India Country Risk Premium.xlsx" download>Download India CRP Calculator using Nifty 50 and Nifty 10 Year Benchmark G Sec Indice</a>
       </div>
 
@@ -609,6 +612,502 @@
       </div>
     </section>
 
+
+<!-- ── INFOGRAPHICS ───────────────────────────────────── -->
+<section id="infographics" class="infographics-section">
+
+  <style>
+   .infographics-section {
+  position: relative;
+  padding: 72px 0;
+  border: none;
+  isolation: isolate;
+}
+
+.infographics-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  left:50%;
+  width:100vw;
+  transform:translateX(-50%);
+  background:#ffffff;
+  z-index:-1;
+}
+
+    .infographics-title {
+      font-family: "Playfair Display", serif;
+      color: var(--accent);
+      font-size: 44px;
+      line-height: 1.05;
+      margin-top:-20px;
+      margin-bottom: 24px;
+    }
+
+    .ig-tab-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .ig-tab {
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: Inter, sans-serif;
+      border: 2px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .ig-tab.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .ig-tab:hover:not(.active) {
+      background: rgba(0,102,255,0.07);
+    }
+
+    .infographics-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) 380px;
+      grid-template-areas:
+        "map-header   region-header"
+        "map          blocks"
+        "map-footer   .";
+      column-gap: 24px;
+      row-gap: 0;
+    }
+    .ig-map-header    { grid-area: map-header;    padding-bottom: 16px; }
+    .ig-region-header {
+      grid-area: region-header;
+      padding-bottom: 16px;
+      align-self: start;
+      color: var(--accent);
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .ig-map       { grid-area: map; }
+    .ig-blocks    { grid-area: blocks; display: flex; flex-direction: column; }
+    .ig-map-footer { grid-area: map-footer; padding-top: 18px; }
+
+    .ig-map-header h2 { font-size: 20px; font-weight: 700; color:var(--accent); margin: 0 0 4px 0; }
+    .info-sub       { font-size: 13px; color: #4a5568; margin: 0; }
+
+    .map-card { background: #dde4f0; border-radius: 16px; padding: 12px; }
+    #mapWrap  { width: 100%; background: #e2e8f4; border-radius: 16px; overflow: hidden; position: relative; }
+    #loading  { padding: 60px; text-align: center; font-size: 13px; color: #4a5568; }
+
+    .legend-wrap   { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+    .grad-bar      { flex: 1; min-width: 160px; height: 12px; border-radius: 6px; background: linear-gradient(to right,#006d2c,#31a354,#ffff99,#fecc5c,#fd8d3c,#f03b20,#800000); }
+    .no-data-pill  { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #4a5568; }
+    .swatch        { width: 13px; height: 13px; border-radius: 3px; }
+
+    #tip        { display: none; position: fixed; background: #fff; border: 1px solid #dde4f0; border-radius: 10px; padding: 10px 14px; font-size: 12px; pointer-events: none; z-index: 9999; box-shadow: 0 4px 20px rgba(0,0,0,.13); line-height: 1.7; min-width: 140px; }
+    #tip strong { font-size: 14px; color: #0066ff; }
+    .badge      { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 10px; background: #e8edf5; color: #4a5568; margin-top: 2px; }
+
+    .region-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-content: space-between;
+    }
+    .region-box   { background: #dde4f0; border-radius: 10px; padding: 12px 8px; text-align: center; }
+    .region-name  { color: var(--accent); font-size: 10px; font-weight: 700; line-height: 1.3; }
+    .region-value { margin-top: 6px; font-size: 18px; font-weight: 700; }
+
+    @media (max-width: 900px) {
+      .infographics-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "map-header"
+          "region-header"
+          "map"
+          "blocks"
+          "map-footer";
+      }
+    }
+  </style>
+
+  <div class="infographics-title">Infographics</div>
+
+  <div class="ig-tab-row">
+    <button class="ig-tab active" onclick="switchIgTab(this, 'crp-panel')">Country Risk Premium Heatmap</button>
+    <button class="ig-tab" onclick="switchIgTab(this, 'coc-panel')">Cost of Capital by Industry</button>
+  </div>
+
+  <div id="crp-panel">
+    <div class="infographics-grid">
+
+      <div class="ig-map-header">
+        <h2>Country Risk Premium: World Heatmap</h2>
+        <p class="info-sub">April 2026 · 174 countries · Hover over any country for details</p>
+      </div>
+
+      <div class="ig-region-header">Country Risk Premium by Regions</div>
+
+      <div class="ig-map">
+        <div class="map-card">
+          <div id="mapWrap">
+            <p id="loading">Loading map…</p>
+          </div>
+          <div class="legend-wrap">
+            <span style="font-size:11px;color:#4a5568">Low risk</span>
+            <div style="flex:1;min-width:160px"><div class="grad-bar"></div></div>
+            <span style="font-size:11px;color:#4a5568">High risk</span>
+            <div class="no-data-pill"><div class="swatch" style="background:#c8c4bc"></div>No data</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ig-blocks">
+        <div class="region-grid">
+          <div class="region-box"><div class="region-name">World</div><div class="region-value">2.99%</div></div>
+          <div class="region-box"><div class="region-name">Asia</div><div class="region-value">2.28%</div></div>
+          <div class="region-box"><div class="region-name">Middle East</div><div class="region-value">6.08%</div></div>
+          <div class="region-box"><div class="region-name">Africa</div><div class="region-value">16.47%</div></div>
+          <div class="region-box"><div class="region-name">Eastern Europe &amp; Russia</div><div class="region-value">7.95%</div></div>
+          <div class="region-box"><div class="region-name">Western Europe</div><div class="region-value">1.47%</div></div>
+          <div class="region-box"><div class="region-name">North America</div><div class="region-value">0.97%</div></div>
+          <div class="region-box"><div class="region-name">Caribbean</div><div class="region-value">19.98%</div></div>
+          <div class="region-box"><div class="region-name">Central &amp; South America</div><div class="region-value">9.77%</div></div>
+          <div class="region-box"><div class="region-name">Australia &amp; New Zealand</div><div class="region-value">0.05%</div></div>
+        </div>
+      </div>
+
+      <div class="ig-map-footer">
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+          <a class="project-btn" href="Global Equity Risk Premiums (ERP) & Country Risk Premiums (CRP).pdf" target="_blank">Open Methodology</a>
+          <a class="project-btn" href="#erp-model" onclick="document.getElementById('erp-model').scrollIntoView({behavior:'smooth',block:'start'});return false;">Go to Model</a>
+        </div>
+        <p style="font-style:italic; font-size:12px; color:var(--muted); margin:12px 0 0 0; max-width:560px;">
+          The India CRP shown here (2.03%) differs from the home page estimate (3.89%). The home page uses Nifty 50 and the Nifty 10-Year G-Sec — a India-specific implied approach and the more precise estimate for India. The heatmap uses CDS spreads and global indices for cross-country comparability at scale.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="coc-panel" style="display:none; padding: 0;">
+
+    <div style="padding-bottom: 16px;">
+      <h2 style="font-size: 20px; font-weight: 700; color: var(--accent); margin: 0 0 4px 0;">Cost of Capital by Industry</h2>
+      <p style="font-size: 13px; color: #4a5568; margin: 0;">April 2026 · 130 companies · ~55% of India's market capitalisation</p>
+    </div>
+
+    <div style="background: #fff; border-radius: 16px; padding: 28px 24px 20px 24px;">
+      <div style="height: 340px; position: relative;">
+        <canvas id="cocChart"></canvas>
+      </div>
+      <p style="margin: 14px 0 0 0; font-size: 12px; color: #4a5568;">Source: Cost of Capital India 2026</p>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script>
+    (function() {
+      const labels = [
+        ['FMCG'], ['Intelligence', 'Technology'], ['Pharma-', 'ceuticals'], ['Healthcare'],
+        ['Auto &', 'Parts'], ['Steel &', 'Metals'], ['Oil &', 'Gas'], ['Infra-', 'structure'],
+        ['Energy'], ['Defence'], ['Realty']
+      ];
+      const data = [11.7, 13.6, 11.9, 11.6, 11.3, 13.4, 11.7, 13.4, 11.7, 14.7, 13.3];
+
+      const ctx = document.getElementById('cocChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: '#0d1f4e',
+            borderRadius: 2,
+            barPercentage: 0.6,
+            categoryPercentage: 0.75,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false },
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              border: { display: false },
+              ticks: {
+                color: '#1a2332',
+                font: { size: 11, family: 'Inter, sans-serif' },
+                maxRotation: 0,
+                minRotation: 0,
+              }
+            },
+            y: {
+              min: 0,
+              max: 16,
+              grid: {
+                color: 'rgba(0,0,0,0.08)',
+                lineWidth: 1,
+                drawTicks: false,
+              },
+              border: { display: false },
+              ticks: {
+                color: '#1a2332',
+                font: { size: 11, family: 'Inter, sans-serif' },
+                stepSize: 4,
+                padding: 8,
+                callback: v => v.toFixed(1) + '%'
+              }
+            }
+          },
+          layout: { padding: { top: 24 } }
+        },
+        plugins: [{
+          id: 'topLabels',
+          afterDatasetDraw(chart) {
+            const { ctx, data, scales: { x, y } } = chart;
+            ctx.save();
+            ctx.font = 'bold 11px Inter, sans-serif';
+            ctx.fillStyle = '#1a2332';
+            ctx.textAlign = 'center';
+            data.datasets[0].data.forEach((val, i) => {
+              const xPos = x.getPixelForValue(i);
+              const yPos = y.getPixelForValue(val) - 7;
+              ctx.fillText(val.toFixed(1) + '%', xPos, yPos);
+            });
+            ctx.restore();
+          }
+        }]
+      });
+    })();
+  </script>
+
+
+  <div id="tip"></div>
+
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+
+<script>
+
+const raw = [
+  ["Bangladesh","Asia",50,16.4866],["Brunei","Asia",96,1.7966],
+  ["Cambodia","Asia",116,16.4866],["China","Asia",156,1.7553],
+  ["Fiji","Asia",242,13.4922],["Hong Kong","Asia",344,1.2711],
+  ["India","Asia",356,2.0276],["Indonesia","Asia",360,3.5408],
+  ["Japan","Asia",392,0.575],["Korea","Asia",410,0.6053],
+  ["Korea, D.P.R.","Asia",408,35.9675],["Laos","Asia",418,29.9788],
+  ["Macao","Asia",446,1.7966],["Malaysia","Asia",458,1.9368],
+  ["Maldives","Asia",462,26.9844],["Mongolia","Asia",496,12.7408],
+  ["Myanmar","Asia",104,29.9788],["Nepal","Asia",524,10.7797],
+  ["Pakistan","Asia",586,22.6066],["Papua New Guinea","Asia",598,16.4866],
+  ["Philippines","Asia",608,2.9658],["Solomon Islands","Asia",90,22.4753],
+  ["Sri Lanka","Asia",144,14.1935],["Taiwan","Asia",158,1.7966],
+  ["Thailand","Asia",764,1.6645],["Vietnam","Asia",704,4.2369],
+  ["Bahrain","Middle East",48,7.929],["Iran","Middle East",364,19.4809],
+  ["Iraq","Middle East",368,11.7421],["Israel","Middle East",376,3.6921],
+  ["Jordan","Middle East",400,10.7797],["Kuwait","Middle East",414,2.1184],
+  ["Lebanon","Middle East",422,52.9607],["Oman","Middle East",512,4.5092],
+  ["Qatar","Middle East",634,1.5434],["Saudi Arabia","Middle East",682,2.875],
+  ["Syria","Middle East",760,52.9607],["United Arab Emirates","Middle East",784,1.4796],
+  ["Yemen, Republic","Middle East",887,35.9675],
+  ["Algeria","Africa",12,9.0183],["Angola","Africa",24,21.154],
+  ["Benin","Africa",204,13.4922],["Botswana","Africa",72,3.5932],
+  ["Burkina Faso","Africa",854,22.4753],["Cameroon","Africa",120,23.7869],
+  ["Cape Verde","Africa",132,16.4866],
+  ["Congo (Dem. Rep.)","Africa",180,19.4809],
+  ["Congo (Rep.)","Africa",178,26.9844],
+  ["Côte d'Ivoire","Africa",384,9.0183],["Egypt","Africa",818,19.4895],
+  ["Ethiopia","Africa",231,26.9844],["Gabon","Africa",266,23.2724],
+  ["Gambia","Africa",270,13.4922],["Ghana","Africa",288,26.9844],
+  ["Guinea","Africa",324,26.9844],["Guinea-Bissau","Africa",624,19.4809],
+  ["Kenya","Africa",404,18.6724],["Liberia","Africa",430,26.9844],
+  ["Libya","Africa",434,6.5876],["Madagascar","Africa",450,16.4866],
+  ["Malawi","Africa",454,26.9844],["Mali","Africa",466,26.9844],
+  ["Mauritius","Africa",480,6.5876],["Morocco","Africa",504,4.3276],
+  ["Mozambique","Africa",508,26.9844],["Namibia","Africa",516,10.5316],
+  ["Niger","Africa",562,29.9788],["Nigeria","Africa",566,17.7948],
+  ["Rwanda","Africa",646,15.9185],["Senegal","Africa",686,23.1817],
+  ["Sierra Leone","Africa",694,26.9844],["Somalia","Africa",706,29.9788],
+  ["South Africa","Africa",710,8.5948],["Sudan","Africa",729,52.9607],
+  ["Eswatini","Africa",748,16.4866],["Tanzania","Africa",834,13.4922],
+  ["Togo","Africa",768,19.4809],["Tunisia","Africa",788,21.9409],
+  ["Uganda","Africa",800,19.4809],["Zambia","Africa",894,26.9844],
+  ["Zimbabwe","Africa",716,26.9844],
+  ["Albania","Eastern Europe & Russia",8,10.7797],
+  ["Armenia","Eastern Europe & Russia",51,10.7797],
+  ["Azerbaijan","Eastern Europe & Russia",31,7.5035],
+  ["Belarus","Eastern Europe & Russia",112,52.9607],
+  ["Bosnia & Herzegovina","Eastern Europe & Russia",70,19.4809],
+  ["Bulgaria","Eastern Europe & Russia",100,2.875],
+  ["Croatia","Eastern Europe & Russia",191,3.2382],
+  ["Czech Republic","Eastern Europe & Russia",203,1.1197],
+  ["Estonia","Eastern Europe & Russia",233,2.3],
+  ["Georgia","Eastern Europe & Russia",268,9.0183],
+  ["Hungary","Eastern Europe & Russia",348,5.0237],
+  ["Kazakhstan","Eastern Europe & Russia",398,3.904],
+  ["Kyrgyzstan","Eastern Europe & Russia",417,19.4809],
+  ["Latvia","Eastern Europe & Russia",428,2.4513],
+  ["Lithuania","Eastern Europe & Russia",440,2.2092],
+  ["North Macedonia","Eastern Europe & Russia",807,10.7797],
+  ["Moldova","Eastern Europe & Russia",498,19.4809],
+  ["Montenegro","Eastern Europe & Russia",499,13.4922],
+  ["Poland","Eastern Europe & Russia",616,2.8145],
+  ["Romania","Eastern Europe & Russia",642,7.5658],
+  ["Russia","Eastern Europe & Russia",643,9.0183],
+  ["Serbia","Eastern Europe & Russia",688,6.4461],
+  ["Slovakia","Eastern Europe & Russia",703,1.3316],
+  ["Slovenia","Eastern Europe & Russia",705,1.604],
+  ["Tajikistan","Eastern Europe & Russia",762,19.4809],
+  ["Ukraine","Eastern Europe & Russia",804,35.9675],
+  ["Uzbekistan","Eastern Europe & Russia",860,10.7797],
+  ["Austria","Western Europe",40,0.4539],["Belgium","Western Europe",56,0.9987],
+  ["Cyprus","Western Europe",196,1.9671],["Denmark","Western Europe",208,0.1211],
+  ["Finland","Western Europe",246,0.4539],["France","Western Europe",250,1.5434],
+  ["Germany","Western Europe",276,0.2118],["Greece","Western Europe",300,2.6329],
+  ["Iceland","Western Europe",352,0.9079],["Ireland","Western Europe",372,0.6355],
+  ["Italy","Western Europe",380,2.4513],["Luxembourg","Western Europe",442,0.1],
+  ["Malta","Western Europe",470,2.5364],["Netherlands","Western Europe",528,0.2421],
+  ["Norway","Western Europe",578,0.1513],["Portugal","Western Europe",620,1.15],
+  ["Spain","Western Europe",724,1.4224],["Sweden","Western Europe",752,0.2421],
+  ["Switzerland","Western Europe",756,0.1],["Turkey","Western Europe",792,10.9856],
+  ["United Kingdom","Western Europe",826,0.6053],
+  ["Canada","North America",124,0.6053],["United States","North America",840,0.9987],
+  ["Argentina","Central & South America",32,24.8159],
+  ["Belize","Central & South America",84,22.4753],
+  ["Bolivia","Central & South America",68,29.9788],
+  ["Brazil","Central & South America",76,7.2027],
+  ["Chile","Central & South America",152,2.6329],
+  ["Colombia","Central & South America",170,10.0171],
+  ["Costa Rica","Central & South America",188,7.0513],
+  ["Ecuador","Central & South America",218,37.0725],
+  ["El Salvador","Central & South America",222,13.0132],
+  ["Guatemala","Central & South America",320,6.1737],
+  ["Guyana","Central & South America",328,6.5876],
+  ["Honduras","Central & South America",340,13.4922],
+  ["Mexico","Central & South America",484,5.1145],
+  ["Nicaragua","Central & South America",558,18.7632],
+  ["Panama","Central & South America",591,8.4434],
+  ["Paraguay","Central & South America",600,6.5876],
+  ["Peru","Central & South America",604,3.6921],
+  ["Suriname","Central & South America",740,22.4753],
+  ["Uruguay","Central & South America",858,3.0869],
+  ["Venezuela","Central & South America",862,52.9607],
+  ["Cuba","Caribbean",192,35.9675],
+  ["Dominican Republic","Caribbean",214,10.7797],
+  ["Haiti","Caribbean",332,35.9675],
+  ["Jamaica","Caribbean",388,13.4922],
+  ["Trinidad and Tobago","Caribbean",780,9.0183],
+  ["Australia","Australia & New Zealand",36,0.0303],
+  ["New Zealand","Australia & New Zealand",554,0.1816]
+];
+
+const byId = {};
+raw.forEach(([name, region, id, crp]) => byId[id] = {name, region, crp});
+
+const colorScale = d3.scaleSequential()
+  .domain([0, 40])
+  .interpolator(t => {
+    const stops = [
+      [0,    [0,  109, 44]],
+      [0.05, [49, 163, 84]],
+      [0.12, [255,255,178]],
+      [0.25, [254,204, 92]],
+      [0.40, [253,141, 60]],
+      [0.60, [240, 59, 32]],
+      [1.0,  [128,  0,  0]],
+    ];
+    let lo = stops[0], hi = stops[stops.length-1];
+    for (let i = 0; i < stops.length-1; i++) {
+      if (t >= stops[i][0] && t <= stops[i+1][0]) { lo = stops[i]; hi = stops[i+1]; break; }
+    }
+    const f = (t - lo[0]) / (hi[0] - lo[0]);
+    const r = Math.round(lo[1][0] + f*(hi[1][0]-lo[1][0]));
+    const g = Math.round(lo[1][1] + f*(hi[1][1]-lo[1][1]));
+    const b = Math.round(lo[1][2] + f*(hi[1][2]-lo[1][2]));
+    return `rgb(${r},${g},${b})`;
+  });
+
+function getColor(crp) {
+  return colorScale(Math.min(crp, 40));
+}
+
+const wrap = document.getElementById('mapWrap');
+const W = wrap.clientWidth || 760;
+const H = Math.round(W * 0.42);
+wrap.style.height = H + 'px';
+
+const svg = d3.select('#mapWrap').append('svg')
+  .attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+
+svg.append('rect').attr('width',W).attr('height',H).attr('fill','#c8d8ec');
+
+const proj = d3.geoNaturalEarth1().scale(W/6.1).translate([W/2, H/2]);
+const pathGen = d3.geoPath(proj);
+const tip = document.getElementById('tip');
+
+d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
+  document.getElementById('loading').remove();
+
+  svg.selectAll('path.country')
+    .data(topojson.feature(world, world.objects.countries).features)
+    .join('path')
+    .attr('class','country')
+    .attr('d', pathGen)
+    .attr('fill', d => {
+      const info = byId[+d.id];
+      return info ? getColor(info.crp) : '#c8c4bc';
+    })
+    .attr('stroke','rgba(255,255,255,0.6)')
+    .attr('stroke-width', 0.35)
+    .on('mousemove', (e, d) => {
+      const info = byId[+d.id];
+      tip.style.display = 'block';
+      tip.style.left = (e.clientX + 16) + 'px';
+      tip.style.top  = (e.clientY - 48) + 'px';
+      if (info) {
+        const bar = `<div style="width:100%;height:5px;border-radius:3px;margin-top:6px;background:${getColor(info.crp)}"></div>`;
+        tip.innerHTML = `<strong>${info.name}</strong><br>
+          <span class="badge">${info.region}</span><br>
+          CRP: <strong style="color:#0066ff">${info.crp.toFixed(2)}%</strong>${bar}`;
+      } else {
+        tip.innerHTML = '<em style="color:#888">No data</em>';
+      }
+    })
+    .on('mouseleave', () => tip.style.display = 'none');
+
+  svg.append('path')
+    .datum(d3.geoGraticule()())
+    .attr('d', pathGen)
+    .attr('fill','none')
+    .attr('stroke','rgba(255,255,255,0.12)')
+    .attr('stroke-width', 0.4);
+
+}).catch(() => {
+  document.getElementById('loading').textContent = 'Map could not load. Check internet connection.';
+});
+
+function switchIgTab(btn, panelId) {
+  document.querySelectorAll('.ig-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('crp-panel').style.display = panelId === 'crp-panel' ? '' : 'none';
+  document.getElementById('coc-panel').style.display = panelId === 'coc-panel' ? '' : 'none';
+}
+
+</script>
+
     <!-- ── PROJECTS ──────────────────────────────────────── -->
     <section id="projects" aria-labelledby="projects-title">
       <div class="projects-left" id="projects-title">Other Tools</div>
@@ -626,7 +1125,7 @@
         </div>
 
         <!-- 2. Global ERP & CRP Estimation Model -->
-        <div class="project-item">
+        <div class="project-item" id="erp-model">
           <h3>Global Equity Risk Premium (ERP) &amp; Country Risk Premium (CRP) Estimation Model</h3>
           <div class="desc">Model estimating sovereign default spreads, country risk premiums, and equity risk premiums for 180+ countries using CDS data, credit ratings, PRS scores, and market volatility. Includes GDP-weighted regional benchmarks and automated outputs for valuation models.</div>
           <div style="display:flex; gap:12px; margin-bottom:10px;">
@@ -659,6 +1158,7 @@
       </div>
     </section>
 
+<div style="border-top:1px solid rgba(0,102,255,.12); margin:0 0 72px 0;"></div>
     <!-- ── CONTACT ───────────────────────────────────────── -->
     <section id="contact" class="section" aria-labelledby="contact-title">
       <div class="left" id="contact-title">Contact</div>
