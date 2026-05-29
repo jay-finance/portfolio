@@ -88,30 +88,41 @@
     /* ── METRIC CARDS ─────────────────────────────────────── */
     .metrics-row {
       display: flex;
-      gap: 20px;
+      gap: 14px;
       margin-bottom: 28px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: stretch;
     }
 
-    /* S&P card — wider */
+    /* S&P card — widest */
     .metric-card-wide {
       background: #dde4f0;
       border-radius: 14px;
       padding: 22px 28px 18px 28px;
-      flex: 2.5;
-      min-width: 320px;
+      flex: 3;
+      min-width: 0;
       display: flex;
       flex-direction: column;
     }
 
-    /* India CRP card — narrower */
+    /* India CRP card — medium */
     .metric-card-narrow {
       background: #dde4f0;
       border-radius: 14px;
-      padding: 22px 28px 18px 28px;
-      flex: 1;
-      min-width: 220px;
+      padding: 18px 16px 14px 16px;
+      flex: 0.95;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Writings card — smallest */
+    .metric-card-writings {
+      background: #dde4f0;
+      border-radius: 14px;
+      padding: 22px 18px 18px 18px;
+      flex: 0.85;
+      min-width: 0;
       display: flex;
       flex-direction: column;
     }
@@ -147,7 +158,7 @@
     }
 
     .metric-value-number {
-      font-size: 36px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--ink);
       letter-spacing: -0.5px;
@@ -164,7 +175,7 @@
 
     /* Single large value for the narrow card */
     .metric-card-value {
-      font-size: 36px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--ink);
       letter-spacing: -0.5px;
@@ -187,6 +198,26 @@
     }
 
     .metric-card-link:hover { text-decoration: underline; }
+
+    /* Writings links */
+    .writings-link {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,102,255,.10);
+      line-height: 1.4;
+      transition: color 0.15s;
+      text-align: center;
+    }
+    .writings-link:last-child {
+      border-bottom: none;
+    }
+    .writings-link:hover {
+      color: var(--accent);
+    }
 
     /* ── FEATURED CARD ───────────────────────────────────── */
     .featured-section {
@@ -461,6 +492,20 @@
       box-shadow: 0 4px 12px rgba(0,102,255,.08);
     }
 
+    @keyframes erp-flicker {
+      0%   { background: transparent; }
+      15%  { background: rgba(0,102,255,0.18); }
+      30%  { background: transparent; }
+      50%  { background: rgba(0,102,255,0.18); }
+      65%  { background: transparent; }
+      82%  { background: rgba(0,102,255,0.12); }
+      100% { background: transparent; }
+    }
+    .erp-flicker {
+      animation: erp-flicker 1.4s ease-in-out;
+      border-radius: 8px;
+    }
+
     footer{
       padding:32px 0;
       color:var(--muted);
@@ -469,6 +514,11 @@
     }
 
     /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width:1000px){
+      .metrics-row { flex-wrap: wrap; }
+      .metric-card-wide { flex: 1 1 100%; }
+      .metric-card-narrow, .metric-card-writings { flex: 1 1 calc(50% - 7px); }
+    }
     @media (max-width:900px){
       .hero-title{ white-space: normal; font-size: clamp(16px, 3vw, 22px); }
       .metric-values-row { gap: 20px; }
@@ -479,9 +529,7 @@
       .featured-card { padding: 24px 20px; }
       .prev-inner-content { flex-direction: column; gap: 16px; }
       .prev-img-wrap { width: 100%; max-width: 140px; }
-      .metrics-row { flex-direction: column; }
-      .metric-card-wide,
-      .metric-card-narrow { min-width: unset; flex: unset; width: 100%; }
+      .metric-card-narrow, .metric-card-writings { flex: 1 1 100%; }
       .section{ grid-template-columns: 1fr; padding:48px 0; }
     }
     @media (max-width:520px){
@@ -544,15 +592,24 @@
         <a class="metric-card-link" href="SP500 Implied ERP and Valuation.xlsx" download>Download the Implied ERP Calculator for S&amp;P 500</a>
       </div>
 
-      <!-- India CRP — narrow card -->
+      <!-- India CRP — medium card -->
       <div class="metric-card-narrow">
-        <p class="metric-card-title" style="color:var(--accent);">Country Risk Premium</p>
-        <p class="metric-card-sub">India</p>
-        <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
-          <p class="metric-card-value" style="text-align:center; margin-bottom:6px;">3.89%</p>
+        <p class="metric-card-title" style="text-align:center;">Country Risk Premium</p>
+        <p class="metric-card-sub" style="text-align:center; margin-bottom:12px;">India</p>
+        <div style="display:flex; flex-direction:column; align-items:center; flex:1; justify-content:center;">
+          <p class="metric-card-value" style="text-align:center; margin-bottom:6px; flex:unset;">3.65%</p>
           <span class="metric-value-label" style="text-align:center; max-width:160px;">Nifty 50, With Nifty 10 Year Benchmark G Sec</span>
         </div>
-        <a class="metric-card-link" href="India Country Risk Premium.xlsx" download>Download India CRP Calculator using Nifty 50 and Nifty 10 Year Benchmark G Sec Indice</a>
+        <p style="text-align:center; font-size:11px; font-style:italic; color:var(--muted); margin:12px 0 0 0;">Source: APAC CRP</p>
+      </div>
+
+      <!-- Writings card — smallest -->
+      <div class="metric-card-writings">
+        <p class="metric-card-title" style="text-align:center;">Writings</p>
+        <div style="margin-top: 14px; display:flex; flex-direction:column; gap:0;">
+          <a class="writings-link" href="Global Equity Risk Premiums (ERP) & Country Risk Premiums (CRP).pdf" target="_blank">Global ERP &amp; CRP Methodology</a>
+          <a class="writings-link" href="APAC Country Risk Premium.pdf" target="_blank">APAC Country Risk Premium</a>
+        </div>
       </div>
 
     </div>
@@ -784,10 +841,10 @@
       <div class="ig-map-footer">
         <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
           <a class="project-btn" href="Global Equity Risk Premiums (ERP) & Country Risk Premiums (CRP).pdf" target="_blank">Open Methodology</a>
-          <a class="project-btn" href="#erp-model" onclick="document.getElementById('erp-model').scrollIntoView({behavior:'smooth',block:'start'});return false;">Go to Model</a>
+          <a class="project-btn" href="#erp-model" onclick="goToModel();return false;">Go to Model</a>
         </div>
         <p style="font-style:italic; font-size:12px; color:var(--muted); margin:12px 0 0 0; max-width:560px;">
-          The India CRP shown here (2.03%) differs from the home page estimate (3.89%). The home page uses Nifty 50 and the Nifty 10-Year G-Sec — a India-specific implied approach and the more precise estimate for India. The heatmap uses CDS spreads and global indices for cross-country comparability at scale.
+          The India CRP shown here at 2.03% differs from the home page estimate at 3.65%. The home page uses Nifty 50 and the Nifty 10-Year G-Sec, a India-specific implied approach and the more precise estimate for India. The heatmap uses CDS spreads and global indices for cross-country comparability at scale.
         </p>
       </div>
 
@@ -1176,6 +1233,22 @@ function switchIgTab(btn, panelId) {
 
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Go to Model — center in viewport + flicker
+    function goToModel() {
+      const el = document.getElementById('erp-model');
+      if (!el) return;
+      const elRect = el.getBoundingClientRect();
+      const elCenter = elRect.top + window.scrollY + elRect.height / 2;
+      const targetY = elCenter - window.innerHeight / 2;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+      setTimeout(() => {
+        el.classList.remove('erp-flicker');
+        void el.offsetWidth;
+        el.classList.add('erp-flicker');
+        el.addEventListener('animationend', () => el.classList.remove('erp-flicker'), { once: true });
+      }, 600);
+    }
 
     // Featured card: toggle previous edition
     function togglePrevEdition() {
