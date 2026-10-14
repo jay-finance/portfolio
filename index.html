@@ -39,6 +39,8 @@
     /* header */
     header{
       display:flex;
+      flex-wrap:wrap;
+      gap:12px 24px;
       justify-content:space-between;
       align-items:center;
       margin-bottom:0;
@@ -53,7 +55,8 @@
     }
     nav{
       display:flex;
-      gap:26px;
+      flex-wrap:wrap;
+      gap:12px 26px;
       align-items:center;
       font-size:15px;
     }
@@ -398,6 +401,54 @@
       font-style: normal;
     }
 
+    /* ── PERSONAL PROJECTS CARDS ─────────────────────────── */
+    .pp-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 48px;
+      margin-top: 48px;
+    }
+    .pp-card { min-width: 0; }
+    .pp-cover-link { display: block; }
+    .pp-cover {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.14);
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pp-cover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(0,0,0,.2);
+    }
+    .pp-title {
+      font-family: Inter, system-ui;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 20px;
+      line-height: 1.35;
+      margin: 22px 0 4px 0;
+    }
+    .pp-date {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 14px 0;
+    }
+    .pp-points {
+      margin: 0 0 20px 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .pp-points li { margin-bottom: 6px; }
+    @media (max-width:800px){
+      .pp-grid { grid-template-columns: 1fr; gap: 56px; }
+    }
+
     /* ── generic section style ───────────────────────────── */
     .section{
       display:grid;
@@ -408,11 +459,10 @@
       border-1px solid rgba(0,102,255,.12);
     }
 
-    /* Projects section - full width */
-    #projects {
+    /* Projects sections (Personal Projects + WACC Tools) - full width, same look */
+    .projects-section {
       display: block;
       padding:72px 0;
-      border-1px solid rgba(0,102,255,.12);
     }
 
     .left{
@@ -534,7 +584,7 @@
     }
     @media (max-width:520px){
       .logo{ font-size:30px; }
-      nav{ gap:12px; font-size:14px; }
+      nav{ gap:10px 14px; font-size:14px; }
       .hero-title{ font-size:16px; white-space: normal; }
       .projects-left{ font-size:28px; }
     }
@@ -548,8 +598,10 @@
     <header>
       <div class="logo">Jay Prakash</div>
       <nav>
+        <a href="RESUME_JAYPRAKASH_2026.pdf" target="_blank">Resume</a>
+        <a href="#personal-projects">Personal Projects</a>
         <a href="#infographics">Infographics</a>
-        <a href="#projects">Other Tools</a>
+        <a href="#wacc-tools">WACC Tools</a>
         <a href="#contact">Contact</a>
         <a class="social" href="https://www.linkedin.com/in/jayprak4sh" target="_blank" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -563,7 +615,7 @@
     <div class="hero-outer" id="about">
       <div class="hero">
         <h1 class="hero-title">
-          Hi, i like to build models, measure value, and tell the story behind the numbers.
+          Hi, I like to build models, measure value, and tell the story behind the numbers.
         </h1>
       </div>
     </div>
@@ -574,7 +626,7 @@
       <!-- S&P 500 — wide card with 3 sub-metrics -->
       <div class="metric-card-wide">
         <p class="metric-card-title">Implied ERP of S&amp;P 500</p>
-        <p class="metric-card-sub">May 2026</p>
+        <p class="metric-card-sub">October 2026</p>
         <div class="metric-values-row">
           <div class="metric-value-item">
             <span class="metric-value-number">3.48%</span>
@@ -664,6 +716,46 @@
               </div>
             </div>
           </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ── PERSONAL PROJECTS ─────────────────────────────── -->
+    <section id="personal-projects" class="projects-section" aria-labelledby="personal-projects-title">
+      <div class="projects-left" id="personal-projects-title">Personal Projects</div>
+
+      <div class="pp-grid">
+
+        <!-- 1. Sun Pharma / Organon merger deck -->
+        <div class="pp-card">
+          <a class="pp-cover-link" href="sunpharma_and_OGN_merger.pdf" target="_blank">
+            <canvas class="pp-cover" data-pdf="sunpharma_and_OGN_merger.pdf" role="img" aria-label="First slide of the Sun Pharma and Organon M&amp;A deck"></canvas>
+          </a>
+          <h3 class="pp-title">M&amp;A Analysis: Sun Pharma's Acquisition of Organon &amp; Co.</h3>
+          <p class="pp-date">October 2026</p>
+          <ul class="pp-points">
+            <li>DCF values Organon at $12.73–$12.84 per share against Sun's $14.00 all-cash offer; trading comps give $5.49–$11.02.</li>
+            <li>Deal IRR of 10.5% vs. Sun's 7.9% WACC, breaking even at ~19% of the $350mm synergies.</li>
+            <li>Cash + debt is 17% to 38% EPS accretive (FY28–FY31). Recommends proceeding at $14.00 with a price ceiling of $15.91.</li>
+          </ul>
+          <a class="project-btn" href="sunpharma_and_OGN_merger.pdf" target="_blank">Open in New Tab</a>
+        </div>
+
+        <!-- 2. Page Industries valuation report -->
+        <div class="pp-card">
+          <a class="pp-cover-link" href="Page industries valuation report.pdf" target="_blank">
+            <canvas class="pp-cover" data-pdf="Page industries valuation report.pdf" role="img" aria-label="Cover page of the Page Industries valuation report"></canvas>
+          </a>
+          <h3 class="pp-title">Business Analysis &amp; Equity Valuation: Page Industries Ltd.</h3>
+          <p class="pp-date">November 2025</p>
+          <ul class="pp-points">
+            <li>10-year DCF at a 14.9% WACC values the equity at ₹14,228 Cr (perpetual growth) and ₹19,916 Cr (exit multiple), against a ₹49,451 Cr market cap.</li>
+            <li>P/E comparison with Lux, Rupa and Dollar gives ₹16,171 Cr, about 67% below the market value.</li>
+            <li>Concludes the stock is heavily overvalued on fundamentals (~64%), with the premium explained by Page's leadership in premium innerwear.</li>
+          </ul>
+          <a class="project-btn" href="Page industries valuation report.pdf" target="_blank">Open in New Tab</a>
         </div>
 
       </div>
@@ -1165,9 +1257,9 @@ function switchIgTab(btn, panelId) {
 
 </script>
 
-    <!-- ── PROJECTS ──────────────────────────────────────── -->
-    <section id="projects" aria-labelledby="projects-title">
-      <div class="projects-left" id="projects-title">Other Tools</div>
+    <!-- ── WACC TOOLS ────────────────────────────────────── -->
+    <section id="wacc-tools" class="projects-section" aria-labelledby="wacc-tools-title">
+      <div class="projects-left" id="wacc-tools-title">WACC Tools</div>
       <div class="projects-sub"></div>
 
       <div style="margin-top: 48px;">
@@ -1196,19 +1288,6 @@ function switchIgTab(btn, panelId) {
           <div class="desc">Bottom-up beta engine for Indian companies using sector data from Prof. Damodaran, deriving unlevered industry beta and re-levered company beta for cleaner cost of equity estimates.</div>
           <div style="display:flex; gap:12px; margin-bottom:10px;">
             <a class="project-btn" href="Bottom Beta Estimation - India.xlsx" download>View Model</a>
-          </div>
-        </div>
-
-        <!-- 4. Business Analysis & Equity Valuation – Page Industries -->
-        <div class="project-item">
-          <h3>Business Analysis &amp; Equity Valuation – Page Industries Ltd.</h3>
-          <div class="desc">In-depth Valuation Report demonstrating key insights robust incorporating 10-years projections, DCF valuation, Sensitivity Analysis, and Comparable Companies Analysis.</div>
-          <div style="display:flex; gap:12px; margin-bottom:10px;">
-            <a class="project-btn" href="Page industries valuation report.pdf" target="_blank">Open in New Tab</a>
-            <button class="project-btn" onclick="togglePDF('pdf1', this)">View Here</button>
-          </div>
-          <div id="pdf1" class="pdf-viewer">
-            <embed src="Page industries valuation report.pdf#toolbar=0" type="application/pdf" width="100%" height="600px" />
           </div>
         </div>
 
@@ -1282,6 +1361,31 @@ function switchIgTab(btn, panelId) {
         if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
       });
     });
+  </script>
+
+  <!-- Renders page 1 of each Personal Projects PDF as its cover image -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    (function () {
+      if (!window.pdfjsLib) return;
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      document.querySelectorAll('canvas[data-pdf]').forEach(function (canvas) {
+        pdfjsLib.getDocument(encodeURI(canvas.dataset.pdf)).promise
+          .then(function (pdf) { return pdf.getPage(1); })
+          .then(function (page) {
+            var base = page.getViewport({ scale: 1 });
+            var viewport = page.getViewport({ scale: 1100 / base.width });
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            return page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise;
+          })
+          .catch(function () {
+            canvas.style.display = 'none';
+          });
+      });
+    })();
   </script>
 </body>
 </html>
